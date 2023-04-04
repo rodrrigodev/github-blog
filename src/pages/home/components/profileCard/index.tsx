@@ -1,11 +1,15 @@
-import { GithubLogo, Buildings, Users } from '@phosphor-icons/react'
+import {
+  GithubLogo,
+  Buildings,
+  Users,
+  ArrowSquareOut,
+} from '@phosphor-icons/react'
 import {
   ProfileDetails,
   ProfileImg,
   ProfileInfoContainer,
   UserNameAndGit,
 } from './styles'
-import link from '../../../../assets/link.svg'
 import { useTheme } from 'styled-components'
 
 export function ProfileCard() {
@@ -21,7 +25,7 @@ export function ProfileCard() {
         <UserNameAndGit>
           <strong>Cameron Williamson</strong>
           <a href="">
-            Github <img src={link} alt="" />
+            Github <ArrowSquareOut size={20} weight="bold" color={theme.blue} />
           </a>
         </UserNameAndGit>
         <p>
@@ -31,17 +35,17 @@ export function ProfileCard() {
         </p>
         <ProfileDetails>
           <span>
-            <GithubLogo size={18} weight="fill" color={theme.label} />
+            <GithubLogo size={20} weight="fill" color={theme.label} />
             cameronwll
           </span>
 
           <span>
-            <Buildings size={18} weight="fill" color={theme.label} />
+            <Buildings size={20} weight="fill" color={theme.label} />
             Rocketseat
           </span>
 
           <span>
-            <Users size={18} weight="fill" color={theme.label} />
+            <Users size={20} weight="fill" color={theme.label} />
             32 seguidores
           </span>
         </ProfileDetails>
