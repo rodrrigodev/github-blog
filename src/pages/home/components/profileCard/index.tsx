@@ -11,49 +11,12 @@ import {
   UserNameAndGit,
 } from './styles'
 import { useTheme } from 'styled-components'
-import { useEffect, useState } from 'react'
-import { api } from '../../../../lib/axios'
-
-interface ApiProps {
-  name: string
-  login: string
-  bio: string
-  company?: string
-  avatar_url: string
-  followers: number
-}
-
-interface UserInfoProps {
-  name: string
-  login: string
-  bio: string
-  company?: string
-  avatar: string
-  followers: number
-}
+import { useContext } from 'react'
+import { GithubContext } from '../../../../contexts/GithubContext'
 
 export function ProfileCard() {
   const theme = useTheme()
-
-  const [userInfo, setUserInfo] = useState<UserInfoProps>()
-
-  async function getUserInfo() {
-    const response: ApiProps = await (await api.get('/users/rodrrigodev')).data
-
-    const {
-      avatar_url: avatar,
-      bio,
-      followers,
-      login,
-      name,
-      company,
-    } = response
-    setUserInfo({ avatar, bio, followers, login, name, company })
-  }
-
-  useEffect(() => {
-    getUserInfo()
-  }, [])
+  const { userInfo } = useContext(GithubContext)
 
   return (
     <ProfileInfoContainer>
@@ -62,7 +25,7 @@ export function ProfileCard() {
       <div>
         <UserNameAndGit>
           <strong>{userInfo?.name}</strong>
-          <a href="">
+          <a href={userInfo?.url} target="_blank" rel="noreferrer">
             Github <ArrowSquareOut size={20} weight="bold" color={theme.blue} />
           </a>
         </UserNameAndGit>

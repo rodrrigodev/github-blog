@@ -1,11 +1,16 @@
 import { ArticleContainer } from './styles'
 
-export function PostCard() {
+interface PostCardProps {
+  title: string
+  post: string
+  created_at: Date
+}
+
+export function PostCard(post: PostCardProps) {
   return (
     <ArticleContainer>
-      return(
       <div>
-        <h1>JavaScript data types and data structures</h1>
+        <h1>{post.title}</h1>
         <span>Há 1 dia</span>
       </div>
       <p>
@@ -13,7 +18,6 @@ export function PostCard() {
         differ from one language to another. This article attempts to list the
         built-in data structures available in...
       </p>
-      )
     </ArticleContainer>
   )
 }
