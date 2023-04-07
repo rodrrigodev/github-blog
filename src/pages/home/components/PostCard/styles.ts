@@ -29,5 +29,9 @@ export const ArticleContainer = styled.article`
     line-height: 1.6;
     color: ${(props) => props.theme.text};
     max-width: 22rem;
+
+    &:nth-of-type(1) {
+      margin-top: 1.25rem;
+    }
   }
 `

@@ -1,23 +1,25 @@
+import { formatDistanceToNow } from 'date-fns'
+import { cutTexts } from '../../../../utils/cutText'
 import { ArticleContainer } from './styles'
+import ReactMarkdown from 'react-markdown'
+import { ptBR } from 'date-fns/locale'
 
 interface PostCardProps {
   title: string
   post: string
-  created_at: Date
+  createdAt: Date
 }
 
-export function PostCard(post: PostCardProps) {
+export function PostCard(postInfo: PostCardProps) {
+  const { post, title, createdAt } = postInfo
+  const date = formatDistanceToNow(createdAt, { locale: ptBR, addSuffix: true })
   return (
     <ArticleContainer>
       <div>
-        <h1>{post.title}</h1>
-        <span>Há 1 dia</span>
+        <h1>{title}</h1>
+        <span>{date}</span>
       </div>
-      <p>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in...
-      </p>
+      <ReactMarkdown>{cutTexts.cutPost(post)}</ReactMarkdown>
     </ArticleContainer>
   )
 }

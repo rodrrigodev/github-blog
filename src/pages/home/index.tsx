@@ -19,7 +19,7 @@ export function Home() {
             <PostCard
               key={post.id}
               post={post.post}
-              created_at={post.createdtAt}
+              createdAt={post.createdtAt}
               title={post.title}
             />
           )
