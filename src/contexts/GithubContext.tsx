@@ -21,7 +21,7 @@ interface UserInfoProps {
   url: string
 }
 
-interface ApiPosts {
+export interface ApiPosts {
   number: number
   body: string
   comments: number
@@ -40,6 +40,7 @@ interface PostsProps {
 interface GithubContextType {
   userInfo?: UserInfoProps
   posts?: PostsProps[]
+  updatePosts: (posts: PostsProps[]) => void
 }
 
 export const GithubContext = createContext({} as GithubContextType)
@@ -86,12 +87,16 @@ export function GithubContextProvider({
     posts ? setPosts(posts) : console.log('Houve um error')
   }
 
+  function updatePosts(post: PostsProps[]) {
+    setPosts(post)
+  }
+
   useEffect(() => {
     getUserInfo()
     getPosts()
   }, [])
   return (
-    <GithubContext.Provider value={{ userInfo, posts }}>
+    <GithubContext.Provider value={{ userInfo, posts, updatePosts }}>
       {children}
     </GithubContext.Provider>
   )
