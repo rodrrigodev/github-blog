@@ -33,7 +33,7 @@ interface PostsProps {
   id: number
   post: string
   commentsAmount: number
-  createdtAt: Date
+  createdAt: Date
   title: string
 }
 
@@ -41,6 +41,7 @@ interface GithubContextType {
   userInfo?: UserInfoProps
   posts?: PostsProps[]
   updatePosts: (posts: PostsProps[]) => void
+  getPosts: () => Promise<void>
 }
 
 export const GithubContext = createContext({} as GithubContextType)
@@ -78,7 +79,7 @@ export function GithubContextProvider({
       return {
         post: post.body,
         id: post.number,
-        createdtAt: new Date(post.created_at),
+        createdAt: new Date(post.created_at),
         commentsAmount: post.comments,
         title: post.title,
       }
@@ -96,7 +97,7 @@ export function GithubContextProvider({
     getPosts()
   }, [])
   return (
-    <GithubContext.Provider value={{ userInfo, posts, updatePosts }}>
+    <GithubContext.Provider value={{ userInfo, posts, updatePosts, getPosts }}>
       {children}
     </GithubContext.Provider>
   )

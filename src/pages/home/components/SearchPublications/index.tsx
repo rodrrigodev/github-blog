@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { ApiPosts, GithubContext } from '../../../../contexts/GithubContext'
 import { FormContainerSearch } from './styles'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { api } from '../../../../lib/axios'
 
 type QueryParams = {
@@ -13,9 +13,11 @@ interface ResponseProps {
 }
 
 export function SearchPublications() {
-  const { posts } = useContext(GithubContext)
+  const { posts, updatePosts, getPosts } = useContext(GithubContext)
   const postsAmount = posts?.length
-  const { handleSubmit, register } = useForm<QueryParams>()
+  const { handleSubmit, register, watch } = useForm<QueryParams>()
+  const queryIsEmpty = watch('query')
+  const [update, setUpdate] = useState(false)
 
   async function searchPost(query: string) {
     const response: ResponseProps = (
@@ -23,11 +25,29 @@ export function SearchPublications() {
         `/search/issues?q=${query}/repo:rodrrigodev/github-blog/issues`,
       )
     ).data
-    console.log(response)
+
+    const data = response.items.map((data) => {
+      const { body, comments, number, title } = data
+      return {
+        id: number,
+        title,
+        post: body,
+        createdAt: new Date(data.created_at),
+        commentsAmount: comments,
+      }
+    })
+
+    setUpdate(true)
+    updatePosts(data)
   }
 
   function queryParams(data: QueryParams) {
     searchPost(data.query)
+  }
+
+  if (update && !queryIsEmpty) {
+    getPosts()
+    setUpdate(false)
   }
 
   return (
