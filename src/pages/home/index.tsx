@@ -21,6 +21,7 @@ export function Home() {
               post={post.post}
               createdAt={post.createdAt}
               title={post.title}
+              id={post.id}
             />
           )
         })}

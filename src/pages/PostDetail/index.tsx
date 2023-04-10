@@ -1,28 +1,59 @@
+import { useEffect, useState } from 'react'
 import { IssueDetail } from './components/issueDetail'
 import { IssueContainer, TextContainer } from './styles'
+import { ApiPosts } from '../../contexts/GithubContext'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import { useParams } from 'react-router-dom'
+import { api } from '../../lib/axios'
+
+interface PostProps {
+  id: number
+  post: string
+  commentsAmount: number
+  createdAt: Date
+  title: string
+  issueUrl: string
+}
 
 export function PostDetail() {
+  const [postDetails, setPostDetails] = useState<PostProps | undefined>(
+    undefined,
+  )
+  const post = postDetails?.post
+
+  const { postId } = useParams<{ postId: string }>()
+
+  useEffect(() => {
+    async function getPostById() {
+      const response: ApiPosts = (
+        await api.get(`/repos/rodrrigodev/github-blog/issues/${postId}`)
+      ).data
+      console.log(response)
+      const { body, comments, number, title } = response
+      setPostDetails({
+        id: number,
+        title,
+        post: body,
+        commentsAmount: comments,
+        createdAt: new Date(response.created_at),
+        issueUrl: `https://github.com/rodrrigodev/github-blog/issues/${postId}`,
+      })
+    }
+
+    getPostById()
+  }, [postId])
+
   return (
     <IssueContainer>
-      <IssueDetail />
+      <IssueDetail
+        title={postDetails?.title}
+        createdAt={postDetails?.createdAt}
+        issueUrl={postDetails?.issueUrl}
+        comments={postDetails?.commentsAmount}
+      />
 
       <TextContainer>
-        <p>
-          Programming languages all have built-in data structures, but these
-          often differ from one language to another. This article attempts to
-          list the built-in data structures available in JavaScript and what
-          properties they have. These can be used to build other data
-          structures. Wherever possible, comparisons with other languages are
-          drawn.
-        </p>
-
-        <h2>Dynamic typing</h2>
-        <p>
-          JavaScript is a loosely typed and dynamic language. Variables in
-          JavaScript are not directly associated with any particular value type,
-          and any variable can be assigned (and re-assigned) values of all
-          types:
-        </p>
+        {post && <ReactMarkdown>{post}</ReactMarkdown>}
       </TextContainer>
     </IssueContainer>
   )
