@@ -37,10 +37,11 @@ export function IssueDetail(data: IssueDetailProps) {
           <CaretCircleLeft size={18} weight="bold" color={theme.blue} />
           Voltar
         </Link>
-        <Link to={issueUrl || '/'}>
+
+        <a href={issueUrl || '/'} target="_blank" rel="noreferrer">
           Ver no github
           <ArrowSquareOut size={18} weight="bold" color={theme.blue} />
-        </Link>
+        </a>
       </NavegationContainer>
 
       <IssueDetailContainer>

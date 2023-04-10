@@ -2,13 +2,16 @@ import styled from 'styled-components'
 
 export const ArticleContainer = styled.article`
   padding: 2rem;
-  background-color: ${(props) => props.theme.post};
   border-radius: 10px;
 
   div {
     display: flex;
     gap: 1rem;
     justify-content: space-between;
+
+    @media only screen and (max-width: 500px) {
+      flex-direction: column;
+    }
   }
 
   h1 {

@@ -15,6 +15,10 @@ export const ProfileInfoContainer = styled.section`
     color: ${(props) => props.theme.text};
     margin: 0.5rem 0 1.5rem 0;
   }
+
+  @media only screen and (max-width: 690px) {
+    flex-direction: column;
+  }
 `
 
 export const ProfileImg = styled.img`
@@ -55,5 +59,9 @@ export const ProfileDetails = styled.div`
 
     color: ${(props) => props.theme.subtitle};
     line-height: 1.6;
+  }
+
+  @media only screen and (max-width: 510px) {
+    flex-wrap: wrap;
   }
 `

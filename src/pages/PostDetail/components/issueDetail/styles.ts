@@ -40,5 +40,9 @@ export const IssueDetailContainer = styled.div`
       align-items: center;
       gap: 0.5rem;
     }
+
+    @media only screen and (max-width: 500px) {
+      flex-wrap: wrap;
+    }
   }
 `
