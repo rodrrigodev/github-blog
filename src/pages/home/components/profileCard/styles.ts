@@ -63,5 +63,6 @@ export const ProfileDetails = styled.div`
 
   @media only screen and (max-width: 510px) {
     flex-wrap: wrap;
+    /* flex-direction; */
   }
 `
