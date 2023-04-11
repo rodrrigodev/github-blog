@@ -46,10 +46,10 @@ export function PostDetail() {
   return (
     <IssueContainer>
       <IssueDetail
-        title={postDetails?.title}
-        createdAt={postDetails?.createdAt}
-        issueUrl={postDetails?.issueUrl}
-        comments={postDetails?.commentsAmount}
+        title={postDetails?.title || '...'}
+        createdAt={postDetails?.createdAt || new Date()}
+        issueUrl={postDetails?.issueUrl || '...'}
+        comments={postDetails?.commentsAmount || 0}
       />
 
       <TextContainer>

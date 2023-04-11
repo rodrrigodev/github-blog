@@ -14,16 +14,19 @@ import {
 import { Link } from 'react-router-dom'
 import { formatDistance } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { GithubContext } from '../../../../contexts/GithubContext'
+import { useContext } from 'react'
 
 interface IssueDetailProps {
-  title?: string
-  createdAt?: Date
-  issueUrl?: string
-  comments?: number
+  title: string
+  createdAt: Date
+  issueUrl: string
+  comments: number
 }
 
 export function IssueDetail(data: IssueDetailProps) {
   const theme = useTheme()
+  const { getPosts } = useContext(GithubContext)
   const { createdAt, title, issueUrl, comments } = data
   const date = formatDistance(createdAt || new Date(), new Date(), {
     addSuffix: true,
@@ -33,7 +36,7 @@ export function IssueDetail(data: IssueDetailProps) {
   return (
     <SectionContainer>
       <NavegationContainer>
-        <Link to="/">
+        <Link to="/" onClick={() => getPosts()}>
           <CaretCircleLeft size={18} weight="bold" color={theme.blue} />
           Voltar
         </Link>
